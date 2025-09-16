@@ -6,7 +6,7 @@
     <title>To Do List</title>
 </head>
 <body>
-    <h1>To Do List</h1>
+    <h1>Mga Uts</h1>
     <input type="text"
     id="taskInput"
     placeholder="Add a task..."
@@ -44,6 +44,11 @@
 
             const deleteBtn = createDeleteButton(li);
             li.appendChild (deleteBtn);
+
+            const taskSpan = document.createElement("span");
+            taskSpan.textContent = taskText;
+            const editBtn = createEditbutton(li,taskSpan);
+            li.appendChild(editBtn);
         }
         
         function createDeleteButton(li){
@@ -61,8 +66,35 @@
         function handleDeleteClick(li){
             console.log("handleDeleteClick() ->" , li.textContent.replace(" Delete " , "").trim(),Date());
             li.remove();
-
         }
+
+        function createEditbutton(li,taskSpan){
+            const editBtn = document.createElement("button");
+            editBtn.textContent = "Edit";
+            editBtn.className = "edit-btn";
+            editBtn.style.marginleft = "8px";
+            editBtn.onclick = () => handleDeleteClick(li);
+
+            console.log("createEditButton() called ->:", taskSpan.textContent);
+            return editBtn;
+        }
+       
+       function handleEditClick(li){
+        const currentText = li.firstChild.textContent.trim();
+        console.log("hanldeEditClick() -> current:", currentText, Date());
+
+        const newText = prompt("Edit your task", currentText);
+
+        if(newText !== null && newText.trim() !==""){
+            li.firstChild.textContent = newText.trim()
+            console.log("handleEditClick() -> updated to: ", newText.trim(), Date());
+        } else {
+            console.log("handleEditClick -> no changes made");
+        }
+        }
+       
+
+
 </script>
 </body>
 </html>
