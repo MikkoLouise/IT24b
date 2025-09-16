@@ -7,6 +7,15 @@
 </head>
 <body>
     <h1>Mga Uts</h1>
+    <style>
+        .done{
+            text-decoration: line-through;
+            color: gray;
+            opacity: 0.6;
+            cursor: not-allowed;
+
+        }
+    </style>
     <input type="text"
     id="taskInput"
     placeholder="Add a task..."
@@ -92,7 +101,25 @@
             console.log("handleEditClick -> no changes made");
         }
         }
-       
+
+        function createDoneButton(li){
+            const doneBtn = document.createElement("button");
+            doneBtn.textContent = "Done";
+            doneBtn.style.marginLeft = "8px";
+            doneBtn.onclick = () => {
+                console.log(li);
+                li.classList.add("done");
+                
+                const buttons = li.querySelectorAll("button");
+
+                buttons.forEach(btn => {    
+                    btn.disabled = true;
+                });
+                console.log("Task Completed", taskSpan.textContent, Date());
+            }
+            return doneBtn;
+        }
+    
 
 
 </script>
